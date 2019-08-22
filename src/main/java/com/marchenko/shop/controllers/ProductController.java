@@ -1,15 +1,27 @@
 package com.marchenko.shop.controllers;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import com.marchenko.shop.components.catalog.product.Exception.ProductNotFoundException;
+import com.marchenko.shop.components.catalog.product.model.ProductModel;
+import com.marchenko.shop.components.catalog.product.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping(value = "/product")
 public class ProductController {
 
-    @RequestMapping(value = "/product", method = RequestMethod.GET)
-    public String getAllCategories() {
-        return "";
+    private ProductService productService;
+
+    @Autowired
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @GetMapping(value = "/{id}")
+    public ProductModel getAllCategories(@PathVariable Long id) throws Exception {
+        return productService.getProductById(id).orElseThrow(
+                ProductNotFoundException::new
+        );
     }
 
 }
