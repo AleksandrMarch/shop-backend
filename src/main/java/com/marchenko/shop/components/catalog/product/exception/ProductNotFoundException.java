@@ -1,4 +1,4 @@
-package com.marchenko.shop.components.catalog.product.Exception;
+package com.marchenko.shop.components.catalog.product.exception;
 
 public class ProductNotFoundException extends Exception {
     public ProductNotFoundException(String message) {

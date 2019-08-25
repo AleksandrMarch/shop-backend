@@ -1,6 +1,6 @@
 package com.marchenko.shop.controllers;
 
-import com.marchenko.shop.components.catalog.product.Exception.ProductNotFoundException;
+import com.marchenko.shop.components.catalog.product.exception.ProductNotFoundException;
 import com.marchenko.shop.components.catalog.product.model.ProductModel;
 import com.marchenko.shop.components.catalog.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
