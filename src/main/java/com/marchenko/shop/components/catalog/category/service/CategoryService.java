@@ -23,4 +23,8 @@ public class CategoryService {
     public Optional<CategoryModel> getCategoryById(Long id) {
         return categoryRepository.findById(id);
     }
+
+    public void saveCategory(CategoryModel categoryModel) {
+        categoryRepository.save(categoryModel);
+    }
 }
