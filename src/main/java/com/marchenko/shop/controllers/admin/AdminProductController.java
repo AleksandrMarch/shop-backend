@@ -18,13 +18,13 @@ public class AdminProductController {
         this.productService = productService;
     }
 
-    @RequestMapping(path = "/product", method = RequestMethod.POST)
+    @PostMapping(path = "/product")
     public String saveProduct(@RequestBody ProductModel productModel) {
         productService.saveProduct(productModel);
-        return "ok";
+        return productModel.getId().toString();
     }
 
-    @RequestMapping(path = "/product", method = RequestMethod.GET)
+    @GetMapping(path = "/product")
     public List<ProductModel> getProducts(@RequestParam(required = false) Long productId) {
         return productService.getAllProducts();
     }

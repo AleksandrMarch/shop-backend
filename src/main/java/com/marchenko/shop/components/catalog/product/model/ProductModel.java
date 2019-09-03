@@ -1,6 +1,7 @@
 package com.marchenko.shop.components.catalog.product.model;
 
 import com.marchenko.shop.components.catalog.category.model.CategoryModel;
+import com.marchenko.shop.components.catalog.product.ProductStatuses;
 
 import javax.persistence.*;
 
@@ -14,6 +15,7 @@ public class ProductModel {
     private Long amount;
     private String title;
     private String description;
+    private String status;
     @OneToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private CategoryModel category;
@@ -56,5 +58,13 @@ public class ProductModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
