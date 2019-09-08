@@ -20,7 +20,7 @@ public class UserController {
 
     @RequestMapping(value = "/user/info", method = RequestMethod.GET)
     public String getUserInfo() {
-        return "{\"kek\":\"nahui\"}";
+        return "{\"test\":\"test\"}";
     }
 
     @RequestMapping(value = "/user/register", method = RequestMethod.POST)

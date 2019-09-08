@@ -9,7 +9,7 @@ import com.marchenko.shop.components.catalog.category.model.CategoryModel;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/category")
+@RequestMapping(value = "/categories")
 public class CategoryController {
 
     private CategoryService categoryService;
@@ -18,7 +18,7 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping()
+    @GetMapping
     public List<CategoryModel> getAllCategories() {
         return categoryService.getAllCategories();
     }
