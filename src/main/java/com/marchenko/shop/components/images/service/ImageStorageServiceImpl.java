@@ -1,5 +1,8 @@
 package com.marchenko.shop.components.images.service;
 
+import com.marchenko.shop.components.images.ImageTypes;
+import com.marchenko.shop.components.images.model.ImageModel;
+import com.marchenko.shop.components.images.repository.ImageRepository;
 import com.marchenko.shop.core.StorageProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -19,15 +22,20 @@ import java.nio.file.StandardCopyOption;
 @Service
 public class ImageStorageServiceImpl implements ImageStorageService {
 
+    private ImageRepository imageRepository;
     private final Path rootLocation;
 
     @Autowired
-    public ImageStorageServiceImpl(StorageProperties storageProperties) {
+    public ImageStorageServiceImpl(
+            StorageProperties storageProperties,
+            ImageRepository imageRepository
+    ) {
+        this.imageRepository = imageRepository;
         this.rootLocation = Paths.get(storageProperties.getLocation());
     }
 
     @Override
-    public void store(MultipartFile file) {
+    public void store(MultipartFile file, Long targetId) {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         try {
             if (Files.exists(this.rootLocation)) {
@@ -46,6 +54,8 @@ public class ImageStorageServiceImpl implements ImageStorageService {
             try (InputStream inputStream = file.getInputStream()) {
                 Files.copy(inputStream, this.rootLocation.resolve(filename),
                         StandardCopyOption.REPLACE_EXISTING);
+
+                imageRepository.save(getNewImageModel(file.getOriginalFilename(), targetId));
             }
         }
         catch (IOException e) {
@@ -75,10 +85,6 @@ public class ImageStorageServiceImpl implements ImageStorageService {
         return null;
     }
 
-    private Path load(String filename) {
-        return rootLocation.resolve(filename);
-    }
-
     @Override
     public void init() {
         try {
@@ -88,5 +94,17 @@ public class ImageStorageServiceImpl implements ImageStorageService {
             System.out.println(e.toString());
 //            throw new StorageException("Could not initialize storage", e);
         }
+    }
+
+    private Path load(String filename) {
+        return rootLocation.resolve(filename);
+    }
+
+    private ImageModel getNewImageModel(String title, Long targetId) {
+        ImageModel imageModel = new ImageModel();
+        imageModel.setImageType(ImageTypes.PRODUCT.toString());
+        imageModel.setTitle(title);
+        imageModel.setTargetId(targetId);
+        return imageModel;
     }
 }

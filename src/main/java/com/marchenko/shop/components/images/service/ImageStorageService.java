@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 interface ImageStorageService {
 
-    public void store(MultipartFile file);
+    public void store(MultipartFile file, Long targetId);
 
     Resource loadAsResource(String filename);
 

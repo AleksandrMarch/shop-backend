@@ -23,8 +23,11 @@ public class ImageController {
     }
 
     @PostMapping
-    public String saveImage(@RequestParam(name = "image") MultipartFile file) {
-        imageStorageService.store(file);
+    public String saveImage(
+            @RequestParam(name = "image") MultipartFile file,
+            @RequestParam(name = "targetId") Long targetId
+            ) {
+        imageStorageService.store(file, targetId);
         return "ok";
     }
 

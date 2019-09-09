@@ -12,7 +12,8 @@ public class ImageModel {
     @Column(name = "target_id")
     private Long targetId;
     private String title;
-    private String type;
+    @Column(name = "image_type")
+    private String imageType;
 
     public Long getId() {
         return id;
@@ -38,11 +39,11 @@ public class ImageModel {
         this.title = title;
     }
 
-    public String getType() {
-        return type;
+    public String getImageType() {
+        return imageType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setImageType(String imageType) {
+        this.imageType = imageType;
     }
 }
